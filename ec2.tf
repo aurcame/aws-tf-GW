@@ -6,7 +6,63 @@
 }
 */
 
-// DevTools server Network interface for known IP address
+###
+#  Create 5 EC2 instances: Ansible, DevTools, CI, QA, Docker:
+###
+
+
+// DevTools server Network interface to set known IP address
+resource "aws_network_interface" "GW-Ansible-NI" {
+  description     = "GW Ansible NI"
+  subnet_id       = aws_subnet.GW-subnet1.id
+  private_ips     = ["10.0.1.111"]
+  security_groups = [aws_security_group.GW-ssh.id]
+
+  /*attachment {
+    instance     = aws_instance.GW-Ansible.id
+    device_index = 0
+  }
+*/
+
+  tags = {
+    Name    = "0 Ansible NI"
+    project = "GW"
+    name    = "GW Ansible NI"
+  }
+
+  depends_on = [aws_subnet.GW-subnet1]
+}
+
+// Ansible server instance
+resource "aws_instance" "GWAnsible" {
+  ami           = var.ec2ami
+  instance_type = var.instance_type
+  key_name      = "awskey-frankfurt"
+  //key_name      = aws_key_pair.awskey.key_name
+  //subnet_id = aws_subnet.GW-subnet1.id
+
+  network_interface {
+    network_interface_id = aws_network_interface.GW-Ansible-NI.id
+    device_index         = 0
+  }
+
+  // startup script
+  user_data = file("Ansible.sh")
+
+  tags = {
+    Name    = "0 Ansible"
+    project = "GW"
+    name    = "GW Ansible instance"
+  }
+  volume_tags = {
+    project = "GW"
+    name    = "GW Ansible volume"
+  }
+
+  depends_on = [aws_subnet.GW-subnet1, aws_internet_gateway.GW-IGW]
+}
+
+// DevTools server Network interface to set known IP address
 resource "aws_network_interface" "GW-DevTools-NI" {
   description     = "GW DevTools NI"
   subnet_id       = aws_subnet.GW-subnet1.id
@@ -58,7 +114,7 @@ resource "aws_instance" "GWDevTools" {
 }
 
 
-// CI server Network interface for known IP address
+// CI server Network interface to set known IP address
 resource "aws_network_interface" "GW-CI-NI" {
   description     = "GW CI NI"
   subnet_id       = aws_subnet.GW-subnet1.id
@@ -109,7 +165,7 @@ resource "aws_instance" "GW-CI" {
   depends_on = [aws_vpc.GW-VPC, aws_subnet.GW-subnet1, aws_internet_gateway.GW-IGW]
 }
 
-// CI server Network interface for known IP address
+// CI server Network interface to set known IP address
 resource "aws_network_interface" "GW-QA-NI" {
   description     = "GW QA NI"
   subnet_id       = aws_subnet.GW-subnet1.id

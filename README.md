@@ -1,6 +1,6 @@
 # Create AWS infrastructure with Terraform
 
-This Terraform code deploys AWS infrastructure for GraduationWork project. 
+This Terraform code deploys AWS infrastructure for <a href="https://github.com/aurcame/GW-cicd.git">GraduationWork project</a>.
 
 <img alt="AWS Terraform principal Scheme" src="AWS-scheme.jpg">
 
@@ -8,24 +8,24 @@ All the parameters listed in variables.tf file.
 
 To connect to Your AWS Account You must add terraform.tfvars file that includes Your credentials secrets:
 
-```sh 
+```sh
 access_key = "********************"
 secret_key = "****************************************"
 ```
 
 # Howto get AWS credentials to authorize Terraform manifests:
 
-- Login to your AWS account. 
-- Go to Identity and Access Management (IAM) - Users. 
-- Create user with administrator accsess. 
-- For that user go to Security credential tab and create new Accsess key. 
+- Login to your AWS account.
+- Go to Identity and Access Management (IAM) - Users.
+- Create user with administrator accsess.
+- For that user go to Security credential tab and create new Accsess key.
 - Copy **access_key** and **secret_key** to ***terraform.tfvars*** file.
 
 ## Terraform. Create AWS infrastructure
 
 Clone the repository [tf](https://github.com/aurcame/tf):
 
-```sh 
+```sh
 git clone https://github.com/aurcame/tf.git
 cd tf
 terraform init
@@ -44,5 +44,5 @@ Apply terraform manifests:
 terraform apply
 ```
 
-#### Done. 
+#### Done.
 Check all the resources created for your environment.
