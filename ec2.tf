@@ -10,7 +10,6 @@
 #  Create 5 EC2 instances: Ansible, DevTools, CI, QA, Docker:
 ###
 
-
 // DevTools server Network interface to set known IP address
 resource "aws_network_interface" "GW-Ansible-NI" {
   description     = "GW Ansible NI"
@@ -34,7 +33,7 @@ resource "aws_network_interface" "GW-Ansible-NI" {
 }
 
 // Ansible server instance
-resource "aws_instance" "GWAnsible" {
+resource "aws_instance" "GW-Ansible" {
   ami           = var.ec2ami
   instance_type = var.instance_type
   key_name      = "awskey-frankfurt"
