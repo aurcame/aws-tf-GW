@@ -1,3 +1,12 @@
+#secrets
+terraform.tfvars
+
+# ignore swap files
+*.swp
+
+# ignore screenshots
+AWS-scheme.jpg
+
 # Local .terraform directories
 **/.terraform/*
 
