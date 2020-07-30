@@ -18,7 +18,7 @@ git clone https://github.com/aurcame/GW-cicd.git
 chown -R ec2-user:ec2-user GW-cicd/
 cd GW-cicd
 
-# cat /home/dell/.ssh/awskey_frankfurt > /home/ec2-user/.ssh/awskey_frankfurt
+# cat /home/dell/.ssh/awskey_frankfurt > /home/ec2-user/.ssh/awskey-frankfurt
 #chmod 0600 /home/ec2-user/.ssh/awskey_frankfurt
 
 # run Ansible script for DevTools instance
