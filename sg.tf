@@ -32,7 +32,7 @@ resource "aws_security_group" "GW-ssh" {
 
   // Jenkins port 8080
   ingress {
-    description = "SSH from my IP only"
+    description = "Jenkins port 8080 from my IP only"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
@@ -40,24 +40,38 @@ resource "aws_security_group" "GW-ssh" {
     //    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
   }
 
+  ingress {
+    description = "Jenkins port 8080 inside VPC"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
+  }
+
   // Nexus port 8081
+  ingress {
+    description = "Nexus port 8081 from my IP only"
+    from_port   = 8081
+    to_port     = 8081
+    protocol    = "tcp"
+    cidr_blocks = ["93.74.141.207/32"]
+  }
+
   ingress {
     description = "Nexus port 8081 nside VPC"
     from_port   = 8081
     to_port     = 8081
     protocol    = "tcp"
-    cidr_blocks = ["93.74.141.207/32"]
-    //    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
+    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
   }
 
-  // Nexus port 8081
+  // Nexus repository port 5000
   ingress {
     description = "Nexus docker repository port 5000 inside VPC"
     from_port   = 5000
     to_port     = 5000
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
-    //    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
   }
 
   egress {
