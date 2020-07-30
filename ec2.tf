@@ -250,7 +250,7 @@ resource "aws_instance" "GW-Docker" {
   }
 
   // startup script
-  user_data = file("Docker.sh")
+  user_data = file("userdata/Docker.sh")
 
   tags = {
     Name    = "4 Docker"
