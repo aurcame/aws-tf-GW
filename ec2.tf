@@ -46,7 +46,7 @@ resource "aws_instance" "GW-Ansible" {
   }
 
   // startup script
-  user_data = file("Ansible.sh")
+  user_data = file("userdata/Ansible.sh")
 
   tags = {
     Name    = "0 Ansible"
@@ -97,7 +97,7 @@ resource "aws_instance" "GWDevTools" {
   }
 
   // startup script
-  user_data = file("DevTools.sh")
+  user_data = file("userdata/DevTools.sh")
 
   tags = {
     Name    = "1 DevTools"
@@ -149,7 +149,7 @@ resource "aws_instance" "GW-CI" {
   }
 
   // startup script
-  user_data = file("CI.sh")
+  user_data = file("userdata/CI.sh")
 
   tags = {
     Name    = "2 CI"
@@ -200,7 +200,7 @@ resource "aws_instance" "GW-QA" {
   }
 
   // startup script
-  user_data = file("QA.sh")
+  user_data = file("userdata/QA.sh")
 
   tags = {
     Name    = "3 QA"
