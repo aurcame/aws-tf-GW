@@ -65,9 +65,33 @@ resource "aws_security_group" "GW-ssh" {
     cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
   }
 
+  ingress {
+    description = "Nexus port 8081 nside VPC"
+    from_port   = 8082
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
+  }
+
+  ingress {
+    description = "Java app port 8096 nside VPC"
+    from_port   = 8095
+    to_port     = 8095
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
+  }
+
+  ingress {
+    description = "Java app port 8096 nside VPC"
+    from_port   = 8096
+    to_port     = 8096
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.GW-VPC.cidr_block]
+  }
+
   // Nexus repository port 5000
   ingress {
-    description = "Nexus docker repository port 5000 inside VPC"
+    description = "Nexus docker port 5000 inside VPC"
     from_port   = 5000
     to_port     = 5000
     protocol    = "tcp"
